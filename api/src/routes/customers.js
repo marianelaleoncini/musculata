@@ -8,9 +8,17 @@ const router = express.Router();
 
 router.get('/', customersController.getCustomers);
 
-router.post('/', validate([
-  body('email').isEmail().withMessage(errorMessages.validEmail),
-  body('password').isLength({ min: 6 }).withMessage(errorMessages.minLength(6))
-]));
+router.post(
+  '/',
+  validate([
+    body('email')
+      .isEmail()
+      .withMessage(errorMessages.validEmail),
+    body('password')
+      .isLength({ min: 6 })
+      .withMessage(errorMessages.minLength(6))
+  ]),
+  customersController.createCustomer
+);
 
 module.exports = router;
