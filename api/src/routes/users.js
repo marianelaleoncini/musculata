@@ -1,12 +1,12 @@
 const express = require('express');
 const { body } = require('express-validator');
-const customersController = require('../controllers/customers');
+const usersController = require('../controllers/users');
 const validate = require('../middlewares/validate');
 const errorMessages = require('../utils/errorMessages');
 
 const router = express.Router();
 
-router.get('/', customersController.getCustomers);
+router.get('/', usersController.getUsers);
 
 router.post(
   '/',
@@ -18,7 +18,7 @@ router.post(
       .isLength({ min: 6 })
       .withMessage(errorMessages.minLength(6))
   ]),
-  customersController.createCustomer
+  usersController.createUser
 );
 
 module.exports = router;

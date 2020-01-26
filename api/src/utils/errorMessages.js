@@ -3,6 +3,6 @@ const errorMessages = {
   minLength(value) {
     return `Ingrese por lo menos ${value} caracteres`;
   }
-}
+};
 
 module.exports = errorMessages;
