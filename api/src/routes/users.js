@@ -11,6 +11,12 @@ router.get('/', usersController.getUsers);
 router.post(
   '/',
   validate([
+    body('name')
+      .isString()
+      .withMessage(errorMessages.onlyString),
+    body('lastName')
+      .isString()
+      .withMessage(errorMessages.onlyString),
     body('email')
       .isEmail()
       .withMessage(errorMessages.validEmail),

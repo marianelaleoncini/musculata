@@ -8,10 +8,23 @@ const getUsers = (req, res) => {
 };
 
 const createUser = (req, res) => {
-  res.status(200).json('OK');
+  const { name, lastName, email, password } = req.body;
+
+  User.create({
+    name,
+    lastName,
+    email,
+    password
+  })
+    .then(user => {
+      res.status(200).json(user);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
 };
 
 module.exports = {
   getUsers,
-  createUser,
+  createUser
 };
