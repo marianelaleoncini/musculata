@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const Gym = require('./Gym');
 
 const sequelize = require('../utils/database');
 
@@ -23,7 +24,6 @@ const User = sequelize.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   type: {
     type: Sequelize.STRING,
@@ -51,5 +51,8 @@ const User = sequelize.define('user', {
     type: Sequelize.BOOLEAN
   },
 });
+
+User.belongsTo(Gym);
+Gym.hasMany(User);
 
 module.exports = User;
