@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const ErrorHandler = require('../utils/errors/ErrorHandler');
 
 const validate = validations => {
   return async (req, res, next) => {
@@ -9,7 +10,8 @@ const validate = validations => {
       return next();
     }
 
-    res.status(422).json({ errors: errors.array() });
+    const error = new ErrorHandler(422, 'Los datos ingresados no son válidos', errors.array());
+    next(error);
   };
 };
 

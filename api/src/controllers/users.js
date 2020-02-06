@@ -4,8 +4,9 @@ const User = require('../models/User');
 const ErrorHandler = require('../utils/errors/ErrorHandler');
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+console.log(process.env.SENDGRID_API_KEY)
 const msg = {
-  to: 'marianelaleoncini@gmail.com',
+  to: 'test@gmail.com',
   from: 'marianelaleoncini@gmail.com',
   subject: 'Confirmación de Registro',
   html: 'Por favor ingrese al siguiente link para confirmar su registro y generar su contraseña',
@@ -60,8 +61,10 @@ const createUser = (req, res, next) => {
       sgMail.send(msg);
     })
     .catch(error => {
-      console.log(error);
-      next(new ErrorHandler(500, 'Hubo un error. Vuelva a intentar nuevamente.'));
+      if (!error.statusCode) {
+        error = new ErrorHandler(500, 'Hubo un error. Vuelva a intentar nuevamente.');
+      }
+      next(error);
     });
 };
 
