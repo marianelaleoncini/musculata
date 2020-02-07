@@ -10,7 +10,6 @@ app.use(express.json());
 app.use('/users', userRoutes);
 
 app.use((error, req, res, next) => {
-  // res.status(error.status)
   handleError(error, res);
 });
 
