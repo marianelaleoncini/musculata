@@ -1,7 +1,7 @@
 const express = require('express');
 
 const usersController = require('../controllers/users');
-const usersValidations = require('../validations/users');
+const userValidations = require('../validations/users');
 
 const router = express.Router();
 
@@ -9,8 +9,14 @@ router.get('/', usersController.getUsers);
 
 router.post(
   '/',
-  usersValidations,
+  userValidations.createUser,
   usersController.createUser
+);
+
+router.post(
+  '/confirmRegistration',
+  userValidations.confirmRegistration,
+  usersController.confirmRegistration
 );
 
 module.exports = router;
