@@ -18,16 +18,6 @@ const createUser = validate([
       .withMessage(errorMessages.validUserType),
 ]);
 
-const confirmRegistration = validate([
-    body('password')
-      .isLength({ min: 6 })
-      .bail()
-      .withMessage(errorMessages.minLength(6))
-      .custom((value, { req }) => value === req.body.repeatPassword)
-      .withMessage(errorMessages.equalPassword)
-]);
-
 module.exports = {
   createUser,
-  confirmRegistration,
 };

@@ -1,6 +1,7 @@
 const express = require('express');
 const sequelize = require('./utils/database');
 const userRoutes = require('./routes/users');
+const authRoutes = require('./routes/auth');
 const handleError = require('./utils/errors/handleError');
 
 const app = express();
@@ -8,8 +9,10 @@ const app = express();
 app.use(express.json());
 
 app.use('/users', userRoutes);
+app.use('/auth', authRoutes);
 
 app.use((error, req, res, next) => {
+  console.log('middleware')
   handleError(error, res);
 });
 

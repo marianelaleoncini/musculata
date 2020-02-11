@@ -19,32 +19,21 @@ const createUser = (req, res, next) => {
     });
 };
 
-const confirmRegistration = (req, res, next) => {
-  userService.confirmRegistration(req)
-    .then(() => {
-      res.status(200).json();
-    })
-    .catch(error => {
-      if (!error.statusCode) {
-        error = new ErrorHandler(500, errorMessages.genericError);
-      }
-      next(error);
-    });
-}
-
 const getUsers = (req, res) => {
   User.findAll()
     .then(users => {
       res.status(200).json(users);
     })
     .catch(() => {
-      next(new ErrorHandler(500, errorMessages.genericError));
+      if (!error.statusCode) {
+        error = new ErrorHandler(500, errorMessages.genericError);
+      }
+      next(error);
     });
 };
 
 
 module.exports = {
   createUser,
-  confirmRegistration,
   getUsers,
 };
