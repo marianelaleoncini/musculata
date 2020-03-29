@@ -35,8 +35,8 @@ const createUser = (req) => {
         confirmedRegistration,
       });
     });
-}
+};
 
 module.exports = {
   createUser,
-}
+};

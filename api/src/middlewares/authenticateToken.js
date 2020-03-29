@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const jwt = require('jsonwebtoken')
 const ErrorHandler = require('../utils/errors/ErrorHandler');
-const errorMessages = require('../utils/errors/errorMessages');
 
 const jwtKey = process.env.ACCESS_TOKEN_SECRET;
 
@@ -12,7 +11,6 @@ const authenticateToken = (req, res, next) => {
 
   if (!token) {
     const error = new ErrorHandler(401, 'No está autorizado');
-    console.log(error)
     next(error);
   }
 

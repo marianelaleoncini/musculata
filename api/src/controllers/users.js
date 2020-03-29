@@ -19,12 +19,12 @@ const createUser = (req, res, next) => {
     });
 };
 
-const getUsers = (req, res) => {
+const getUsers = (req, res, next) => {
   User.findAll()
     .then(users => {
       res.status(200).json(users);
     })
-    .catch(() => {
+    .catch((error) => {
       if (!error.statusCode) {
         error = new ErrorHandler(500, errorMessages.genericError);
       }
