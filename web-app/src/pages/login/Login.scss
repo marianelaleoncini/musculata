@@ -1,0 +1,18 @@
+@import '../../assets/variables.scss';
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  .login-form {
+    width: 350px;
+    background: white;
+    padding: 30px;
+    border: 1px solid $border-color;
+    border-radius: 2px;
+    box-shadow: $box-shadow;
+  }
+}
