@@ -12,7 +12,7 @@ app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 
 app.use((error, req, res, next) => {
-  console.log('middleware')
+  console.log('middleware');
   handleError(error, res);
 });
 

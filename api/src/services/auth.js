@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 const ErrorHandler = require('../utils/errors/ErrorHandler');
@@ -27,16 +27,16 @@ const confirmRegistration = req => {
       user.password = hashedPassword;
       return user.save();
     });
-}
+};
 
 const login = req => {
   console.log(req.body);
   
-  const { email, password } = req.body;
+  const { email, password, remember } = req.body;
 
   return User.findOne({ where: { email } })
     .then(user => {
-      console.log(user)
+      console.log(user);
       if (!user) {
         throw new ErrorHandler(401, errorMessages.nonexistingUser);
       }
@@ -50,25 +50,25 @@ const login = req => {
         throw new ErrorHandler(401, errorMessages.wrongPassword);
       }
 
-      const token = jwt.sign({ email }, jwtKey, { expiresIn: '1h' });
+      const token = jwt.sign({ email }, jwtKey, { expiresIn: remember ?  '5y' : '1h'});
       const refreshToken = jwt.sign({ email }, jwtRefreshKey);
 
       return { token, refreshToken };
     });
-}
+};
 
-const refreshToken = req => {
-  /* const refreshToken = req.body.token
+/* const refreshToken = req => {
+  const refreshToken = req.body.token
   if (!refreshToken) return res.sendStatus(401)
   if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403)
     const accessToken = generateAccessToken({ name: user.name })
     res.json({ accessToken: accessToken })
-  })  */
-}
+  })
+}; */
 
 module.exports = {
   confirmRegistration,
   login,
-}
+};

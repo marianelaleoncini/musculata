@@ -12,7 +12,7 @@ const Login = () => {
     <section className="login-page">
       <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onSubmit}>
         <h1>Inicie sesión</h1>
-        <Form.Item name="username" rules={[{ required: true, message: 'Ingrese un email' }]}>
+        <Form.Item name="email" rules={[{ required: true, message: 'Ingrese un email' }]}>
           <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
         </Form.Item>
         <Form.Item name="password" rules={[{ required: true, message: 'Ingrese una contraseña' }]}>

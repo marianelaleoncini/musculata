@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const ErrorHandler = require('../utils/errors/ErrorHandler');
 
 const jwtKey = process.env.ACCESS_TOKEN_SECRET;
@@ -21,6 +21,6 @@ const authenticateToken = (req, res, next) => {
     req.user = user;
     next();
   });
-}
+};
 
 module.exports = authenticateToken;
