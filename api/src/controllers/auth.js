@@ -23,7 +23,8 @@ const login = (req, res, next) => {
       res.status(200).json(data);
     })
     .catch(error => {
-      console.log(error)
+      console.log(error);
+      
       if (!error.statusCode) {
         error = new ErrorHandler(500, errorMessages.genericError);
       }

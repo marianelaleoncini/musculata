@@ -33,6 +33,7 @@ const createUser = (req) => {
         emergencyPhoneNumber,
         address,
         confirmedRegistration,
+        gymId: 1
       });
     });
 };

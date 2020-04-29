@@ -2,10 +2,13 @@ import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './Login.scss';
+import { post } from '../../utils/fetch';
 
 const Login = () => {
-  const onSubmit = (values) => {
-    console.log('Received values of form: ', values);
+  const onSubmit = (body) => {
+    post('auth/login', {body}).then(response => {
+      console.log(response);
+    })
   };
 
   return (

@@ -8,7 +8,7 @@ const ErrorHandler = require('../utils/errors/ErrorHandler');
 const errorMessages = require('../utils/errors/errorMessages');
 
 const jwtKey = process.env.ACCESS_TOKEN_SECRET;
-const jwtRefreshKey = process.env.REFRESH_TOKEN_SECRET;
+// const jwtRefreshKey = process.env.REFRESH_TOKEN_SECRET;
 
 const confirmRegistration = req => {
   const { id, password } = req.body;
@@ -30,13 +30,10 @@ const confirmRegistration = req => {
 };
 
 const login = req => {
-  console.log(req.body);
-  
   const { email, password, remember } = req.body;
 
   return User.findOne({ where: { email } })
     .then(user => {
-      console.log(user);
       if (!user) {
         throw new ErrorHandler(401, errorMessages.nonexistingUser);
       }
@@ -51,9 +48,9 @@ const login = req => {
       }
 
       const token = jwt.sign({ email }, jwtKey, { expiresIn: remember ?  '5y' : '1h'});
-      const refreshToken = jwt.sign({ email }, jwtRefreshKey);
+      // const refreshToken = jwt.sign({ email }, jwtRefreshKey);
 
-      return { token, refreshToken };
+      return { token };
     });
 };
 

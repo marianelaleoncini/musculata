@@ -1,7 +1,7 @@
 const express = require('express');
 
 const usersController = require('../controllers/users');
-const userValidations = require('../validations/users');
+const usersValidations = require('../validations/users');
 const authenticateToken = require('../middlewares/authenticateToken');
 
 const router = express.Router();
@@ -14,7 +14,8 @@ router.get(
 
 router.post(
   '/',
-  userValidations.createUser,
+//  authenticateToken,
+  usersValidations.createUser,
   usersController.createUser
 );
 

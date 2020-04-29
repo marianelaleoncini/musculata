@@ -6,12 +6,16 @@ const errorMessages = require('../utils/errors/errorMessages');
 
 
 const createUser = (req, res, next) => {
+  console.log(req.body);
+  
   userService.createUser(req)
     .then(user => {
       res.status(201).json(user);
       sendEmail(user.email, 'registration');
     })
     .catch(error => {
+      console.log(error);
+      
       if (!error.statusCode) {
         error = new ErrorHandler(500, errorMessages.genericError);
       }

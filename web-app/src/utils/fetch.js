@@ -3,7 +3,7 @@ const localStorageKey = '__musculata_token__';
 const client = (method, endpoint, { body = undefined, authorization = true, ...customConfig } = {}) => {
   const token = window.localStorage.getItem(localStorageKey);
   const headers = { 'content-type': 'application/json' };
-  if (token) {
+  if (token && authorization) {
     headers.Authorization = `Bearer ${token}`;
   }
   const config = {
@@ -17,12 +17,14 @@ const client = (method, endpoint, { body = undefined, authorization = true, ...c
   if (body) {
     config.body = JSON.stringify(body);
   }
+  console.log(config);
+  
   return window.fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, config).then(async (response) => {
-    if (response.status === 401) {
+/*     if (response.status === 401) {
       logout();
       window.location.assign(window.location);
       return;
-    }
+    } */
     const data = await response.json();
     if (response.ok) {
       return data;
