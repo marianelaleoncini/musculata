@@ -6,7 +6,7 @@ const types = {
     subject: 'Confirmación de Registro',
     html: 'Por favor ingrese al siguiente link para confirmar su registro y generar su contraseña',
   }
-}
+};
 
 const sendEmail = (to, type) => {
   sendGridMail.setApiKey('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');
@@ -16,8 +16,8 @@ const sendEmail = (to, type) => {
     to,
     subject,
     html
-  }
+  };
   sendGridMail.send(email);
-}
+};
 
 module.exports = sendEmail;

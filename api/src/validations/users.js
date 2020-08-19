@@ -1,10 +1,10 @@
 const { body } = require('express-validator');
 const validate = require('../middlewares/validate');
 const errorMessages = require('../utils/errors/errorMessages');
-const userTypes = require('../constants/userTypes');
+const userRoles = require('../constants/roles');
 
 const createUser = validate([
-  body('name')
+  body('firstName')
     .notEmpty()
     .withMessage(errorMessages.notEmpty),
   body('lastName')
@@ -13,9 +13,9 @@ const createUser = validate([
   body('email')
     .isEmail()
     .withMessage(errorMessages.validEmail),
-  body('type')
-    .isIn(userTypes)
-    .withMessage(errorMessages.validUserType),
+  body('role')
+    .isIn(userRoles)
+    .withMessage(errorMessages.validUserRole),
 ]);
 
 module.exports = {

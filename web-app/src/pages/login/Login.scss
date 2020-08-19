@@ -2,17 +2,38 @@
 
 .login-page {
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100vw;
   height: 100vh;
+}
 
-  .login-form {
-    width: 350px;
-    background: white;
-    padding: 30px;
-    border: 1px solid $border-color;
-    border-radius: 2px;
-    box-shadow: $box-shadow;
+.login-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  background-color: #a1844b0a;
+
+  &__form {
+    width: 400px;
+
+    &__title {
+      font-size: 30px;
+    }
+
+    &__button {
+      width: 100%;
+    }
+
+    &__alert {
+      margin-bottom: 24px;
+    }
   }
+}
+
+.login-image {
+  background-image: url('../../assets/images/login.jpg');
+  width: 60%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
 }

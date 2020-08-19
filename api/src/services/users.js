@@ -1,13 +1,12 @@
+const firebase = require('firebase-admin');
 const User = require('../models/User');
-const ErrorHandler = require('../utils/errors/ErrorHandler');
-const errorMessages = require('../utils/errors/errorMessages');
 
 const createUser = (req) => {
   const {
-    name,
+    firstName,
     lastName,
     email,
-    type,
+    role,
     extraInfo,
     medicalCertificate,
     profilePicture,
@@ -15,17 +14,27 @@ const createUser = (req) => {
     emergencyPhoneNumber,
     address,
     confirmedRegistration,
+    password,
   } = req.body;
-  return User.findOne({ where: { email } })
-    .then(user => {
-      if (user) {
-        throw new ErrorHandler(200, errorMessages.existingUser);
-      }
+
+  return firebase
+    .auth()
+    .createUser({
+      email,
+      emailVerified: false,
+      password,
+      displayName: `${firstName} ${lastName}`,
+      disabled: false,
+    })
+    .then((firebaseUser) => {
+      return firebase.auth().setCustomUserClaims(firebaseUser.uid, { email, role });
+    })
+    .then(() => {
       return User.create({
-        name,
+        firstName,
         lastName,
         email,
-        type,
+        role,
         extraInfo,
         medicalCertificate,
         profilePicture,
@@ -33,7 +42,6 @@ const createUser = (req) => {
         emergencyPhoneNumber,
         address,
         confirmedRegistration,
-        gymId: 1
       });
     });
 };

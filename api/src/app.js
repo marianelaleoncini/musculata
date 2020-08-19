@@ -1,18 +1,27 @@
 const express = require('express');
+const cors = require('cors');
+const firebase = require('firebase-admin');
 const sequelize = require('./utils/database');
+
 const userRoutes = require('./routes/users');
-const authRoutes = require('./routes/auth');
 const gymsRoutes = require('./routes/gyms');
 const handleError = require('./utils/errors/handleError');
-const cors = require('cors');
 
 const app = express();
+
+// eslint-disable-next-line node/no-unpublished-require
+const serviceAccount = require('../firebase-key.json');
+
+// Firebase is used for authentication
+firebase.initializeApp({
+  credential: firebase.credential.cert(serviceAccount),
+  databaseURL: 'https://musculata-app.firebaseio.com'
+});
 
 app.use(cors());
 app.use(express.json());
 
 app.use('/users', userRoutes);
-app.use('/auth', authRoutes);
 app.use('/gyms', gymsRoutes);
 
 app.use((error, req, res, next) => {

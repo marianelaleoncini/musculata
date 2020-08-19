@@ -1,9 +1,7 @@
 require('dotenv').config();
 
-const jwt = require('jsonwebtoken');
+const firebase = require('firebase-admin');
 const ErrorHandler = require('../utils/errors/ErrorHandler');
-
-const jwtKey = process.env.ACCESS_TOKEN_SECRET;
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -14,13 +12,16 @@ const authenticateToken = (req, res, next) => {
     next(error);
   }
 
-  jwt.verify(token, jwtKey, (error, user) => {
-    if (error) {
+  firebase
+    .auth()
+    .verifyIdToken(token)
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch(() => {
       next(new ErrorHandler(401, 'No tiene permisos'));
-    }
-    req.user = user;
-    next();
-  });
+    });
 };
 
 module.exports = authenticateToken;

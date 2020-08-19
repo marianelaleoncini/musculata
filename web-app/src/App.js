@@ -1,16 +1,15 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import './App.scss';
+import './app.scss';
+import { AuthProvider } from './context/auth-context';
+import Main from './pages/main/Main';
 
-import Login from './pages/login/Login';
-
-function App() {
- 
-  return (
-    <div className="muscula-container">
-      <Login/>
-    </div>
-  );
-}
+const App = () => (
+  <div className="musculata-container">
+    <AuthProvider>
+      <Main />
+    </AuthProvider>
+  </div>
+);
 
 export default App;

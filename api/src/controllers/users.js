@@ -1,3 +1,5 @@
+const firebase = require('firebase-admin');
+
 const User = require('../models/User');
 const ErrorHandler = require('../utils/errors/ErrorHandler');
 const userService = require('../services/users');
@@ -5,17 +7,17 @@ const sendEmail = require('../utils/sendEmail');
 const errorMessages = require('../utils/errors/errorMessages');
 
 
-const createUser = (req, res, next) => {
-  console.log(req.body);
-  
+const createUser = (req, res, next) => { 
   userService.createUser(req)
     .then(user => {
       res.status(201).json(user);
-      sendEmail(user.email, 'registration');
     })
     .catch(error => {
       console.log(error);
       
+      if (error.code) { // firebase auth errors
+        error = new ErrorHandler(200, errorMessages.firebaseAuth[error.code]);
+      }
       if (!error.statusCode) {
         error = new ErrorHandler(500, errorMessages.genericError);
       }
